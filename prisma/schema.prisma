@@ -16,15 +16,49 @@ model User {
   email     String    @unique
   name      String
   password  String
-  products   Product[]
+  products  Product[]
 }
 
 model Product {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
 
-  name        String @db.VarChar(255)
-  description String @db.VarChar(255)
+  name        String   @db.VarChar(255)
+  description String   @db.VarChar(255)
   belongsToId String
-  belongsTo   User   @relation(fields: [belongsToId], references: [id])
+  belongsTo   User     @relation(fields: [belongsToId], references: [id])
+  updates     Update[]
+}
+
+enum UPDATE_STATUS {
+  IN_PROGRESS
+  SHIPPED
+  DEPRECATED
+}
+
+model Update {
+  id        String        @id @default(uuid())
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  title     String
+  bdoy      String
+  status    UPDATE_STATUS @default(IN_PROGRESS)
+  version   String?
+  asset     String?
+
+  productId    String
+  product      Product        @relation(fields: [productId], references: [id])
+  updatedPoints UpdatePoint[]
+}
+
+model UpdatePoint {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String
+  description String
+
+  updateId String
+  update   Update @relation(fields: [updateId], references: [id])
 }
