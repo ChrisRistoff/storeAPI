@@ -14,7 +14,7 @@ model User {
   id        String    @id @default(uuid())
   createdAt DateTime  @default(now())
   email     String    @unique
-  name      String
+  username      String
   password  String
   products  Product[]
 }
