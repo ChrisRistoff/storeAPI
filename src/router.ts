@@ -4,7 +4,9 @@ const router = Router();
 
 
 // Product
-router.get('/product', () => {});
+router.get('/product', (req, res) => {
+  res.send('Hello World!');
+});
 
 router.get('/product/:id', () => {});
 
