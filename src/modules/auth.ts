@@ -1,5 +1,14 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
+import bcrypt from 'bcrypt';
+
+export const comparePasswords = (password: string, hashedPassword: string) => {
+  return bcrypt.compare(password, hashedPassword);
+}
+
+export const hashPassword = (password: string) => {
+  return bcrypt.hash(password + process.env.SECRET_KEY, 10 );
+}
 
 export const createJWT = (user: any): string => {
   const token = jwt.sign({
@@ -23,7 +32,8 @@ export const protect = (req: Request & {user: any}, res: Response, next: NextFun
   }
 
   // split the token into an array and get the token from the array at index 1
-  const [, token] = bearer.split(' ');
+  const split_token = bearer.split(' ');
+  const token = split_token[1];
 
   // verify the token
   if (!token) {
@@ -43,5 +53,5 @@ export const protect = (req: Request & {user: any}, res: Response, next: NextFun
     res.status(401).json({ message: 'Token not valid' });
     return;
   }
-
 }
+
