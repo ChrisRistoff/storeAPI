@@ -1,43 +1,48 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
+import { body, validationResult } from 'express-validator';
 
 const router = Router();
 
 
 // Product
-router.get('/product', (req, res) => {
-  res.send('Hello World!');
+router.get('/product', (req: Request, res: Response) => {});
+
+router.get('/product/:id', (req: Request, res: Response) => {});
+
+router.put('/product/:id', body('name').isString(), (req: Request, res: Response) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.status(400).json({ errors: errors.array() });
+  }
 });
 
-router.get('/product/:id', () => {});
+router.post('/product', (req: Request, res: Response) => {});
 
-router.put('/product/:id', () => {});
-
-router.post('/product', () => {});
-
-router.delete('/product/:id', () => {});
+router.delete('/product/:id', (req: Request, res: Response) => {});
 
 
 // Update
-router.get('/update', () => {});
+router.get('/update', (req: Request, res: Response) => {});
 
-router.get('/update/:id', () => {});
+router.get('/update/:id', (req: Request, res: Response) => {});
 
-router.put('/update/:id', () => {});
+router.put('/update/:id', (req: Request, res: Response) => {});
 
-router.post('/update', () => {});
+router.post('/update', (req: Request, res: Response) => {});
 
-router.delete('/update/:id', () => {});
+router.delete('/update/:id', (req: Request, res: Response) => {});
 
 
 // Update Point
-router.get('/updatepoint', () => {});
+router.get('/updatepoint', (req: Request, res: Response) => {});
 
-router.get('/updatepoint/:id', () => {});
+router.get('/updatepoint/:id', (req: Request, res: Response) => {});
 
-router.put('/updatepoint/:id', () => {});
+router.put('/updatepoint/:id', (req: Request, res: Response) => {});
 
-router.post('/updatepoint', () => {});
+router.post('/updatepoint', (req: Request, res: Response) => {});
 
-router.delete('/updatepoint/:id', () => {});
+router.delete('/updatepoint/:id', (req: Request, res: Response) => {});
 
 export default router;

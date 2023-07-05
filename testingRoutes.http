@@ -21,3 +21,8 @@ Content-Type: application/json
 GET http://localhost:8080/api/product
 Content-Type: text/html
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2OGNiMDcyLTc5MTYtNGQxZi05YWY3LWQzN2Q0N2M3ZjNkNyIsInVzZXJuYW1lIjoia3Jha3JhIiwiaWF0IjoxNjg4NDk5MDE0fQ.6yR9eLYV68Uy2poRhcRTwjXlKasVCd4xK2Rj9VQ99MU
+
+### put product
+PUT http://localhost:8080/api/product/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2OGNiMDcyLTc5MTYtNGQxZi05YWY3LWQzN2Q0N2M3ZjNkNyIsInVzZXJuYW1lIjoia3Jha3JhIiwiaWF0IjoxNjg4NDk5MDE0fQ.6yR9eLYV68Uy2poRhcRTwjXlKasVCd4xK2Rj9VQ99MU
