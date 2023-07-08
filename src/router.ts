@@ -29,7 +29,7 @@ router.get('/update',(req: Request, res: Response) => {});
 router.get('/update/:id', 
   body('title').exists().isString(),
   body('body').exists().isString(),
-  oneOf('status', [body('IN_PROGRESS'), body('SHIPPED'), body('DEPRECATED')]),
+  body('status').isIn(['IN_PROGRESS', 'SHIPPED', 'DEPRECATED']),
   body('version').optional,
   handleInputError,
   (req: Request, res: Response) => {});
