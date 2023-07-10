@@ -1,26 +1,27 @@
 import { Request, Response, Router } from 'express';
 import { body, oneOf, validationResult } from 'express-validator';
 import { handleInputError } from './modules/middleware';
+import { createProduct, deleteProduct, getOne, getUserProducts, updateProduct } from './handlers/products';
 
 const router = Router();
 
 
 // Product
-router.get('/product', (req: Request, res: Response) => {});
+router.get('/product', getUserProducts);
 
-router.get('/product/:id', (req: Request, res: Response) => {});
+router.get('/product/:id', getOne); 
 
 router.put('/product/:id',
   body('name').isString(),
   handleInputError,
-  (req: Request, res: Response) => {});
+  updateProduct);
 
 router.post('/product',
   body('name').isString(),
   handleInputError,
-  (req: Request, res: Response) => {});
+  createProduct);
 
-router.delete('/product/:id', (req: Request, res: Response) => {});
+router.delete('/product/:id', deleteProduct);
 
 
 // Update
