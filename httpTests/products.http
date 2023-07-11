@@ -1,0 +1,53 @@
+### Create new user
+
+POST http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "username": "krakra",
+  "password": "supersecret"
+}
+
+### Login
+POST http://localhost:8080/signin
+Content-Type: application/json
+
+{
+  "username": "krakra",
+  "password": "supersecret"
+}
+
+### Get products
+GET http://localhost:8080/api/product
+Content-Type: text/html
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2OGNiMDcyLTc5MTYtNGQxZi05YWY3LWQzN2Q0N2M3ZjNkNyIsInVzZXJuYW1lIjoia3Jha3JhIiwiaWF0IjoxNjg4NDk5MDE0fQ.6yR9eLYV68Uy2poRhcRTwjXlKasVCd4xK2Rj9VQ99MU
+
+### post product
+POST http://localhost:8080/api/product
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2OGNiMDcyLTc5MTYtNGQxZi05YWY3LWQzN2Q0N2M3ZjNkNyIsInVzZXJuYW1lIjoia3Jha3JhIiwiaWF0IjoxNjg4NDk5MDE0fQ.6yR9eLYV68Uy2poRhcRTwjXlKasVCd4xK2Rj9VQ99MU
+
+{
+  "name": "test",
+  "description": "test"
+}
+
+### get product by id
+GET http://localhost:8080/api/product/fe4c47f2-1f44-4c8f-a233-a080f9087b61
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2OGNiMDcyLTc5MTYtNGQxZi05YWY3LWQzN2Q0N2M3ZjNkNyIsInVzZXJuYW1lIjoia3Jha3JhIiwiaWF0IjoxNjg4NDk5MDE0fQ.6yR9eLYV68Uy2poRhcRTwjXlKasVCd4xK2Rj9VQ99MU
+
+### update product
+PUT http://localhost:8080/api/product/fe4c47f2-1f44-4c8f-a233-a080f9087b61
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2OGNiMDcyLTc5MTYtNGQxZi05YWY3LWQzN2Q0N2M3ZjNkNyIsInVzZXJuYW1lIjoia3Jha3JhIiwiaWF0IjoxNjg4NDk5MDE0fQ.6yR9eLYV68Uy2poRhcRTwjXlKasVCd4xK2Rj9VQ99MU
+
+{
+  "name": "test update",
+  "description": "test update"
+}
+
+### delete product
+DELETE http://localhost:8080/api/product/fe4c47f2-1f44-4c8f-a233-a080f9087b61
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2OGNiMDcyLTc5MTYtNGQxZi05YWY3LWQzN2Q0N2M3ZjNkNyIsInVzZXJuYW1lIjoia3Jha3JhIiwiaWF0IjoxNjg4NDk5MDE0fQ.6yR9eLYV68Uy2poRhcRTwjXlKasVCd4xK2Rj9VQ99MU
