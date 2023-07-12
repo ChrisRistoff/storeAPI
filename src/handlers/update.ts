@@ -53,30 +53,63 @@ export const getOneUpdate = async (req: Request, res: Response) => {
 // create
 export const createUpdate = async (req: Request, res: Response) => {
   try {
-    const { title, body } = req.body;
-  const update = await prisma.update.create({
-    data: {
-      title,
-      body,
-      product: { connect: { id: req.body.productId} },
-    },
-  });
-    res.json({ data: update });
+    const product = await prisma.product.findFirst({
+      where: { id: req.body.productId },
+    });
+
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    const update = await prisma.update.create({
+      data: req.body,
+    });
+
+   res.json({ data: update });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-      
+
 
 // update
 export const updateUpdate = async (req: Request, res: Response) => {
   try {
-    const { title, body } = req.body;
+    // get all products by user
+    const products = await prisma.product.findMany({
+      where: {
+        belongsToId: req.user.id,
+      },
+      include: { updates: true },
+    });
+
+    const updates = [];
+
+    // get all updates from products by user
+    for (const product of products) {
+      updates.push(...product.updates);
+    }
+
+    let match: string | undefined;
+
+    // check if update exists in user's product's updates array
+    for (const update of updates) {
+      if (update.id === req.params.id) {
+        match = update;
+      }
+    }
+
+    if (!match) {
+      return res.status(404).json({ error: "Update not found" });
+    }
+
+    // update the update if it exists
     const update = await prisma.update.update({
       where: { id: req.params.id },
-      data: { title, body },
+      data: req.body,
     });
-    res.json({ data: update });
+
+   res.json({ data: update });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -86,10 +119,36 @@ export const updateUpdate = async (req: Request, res: Response) => {
 // delete
 export const deleteUpdate = async (req: Request, res: Response) => {
   try {
-    const update = await prisma.update.delete({
+    const products = await prisma.product.findMany({
+      where: { belongsToId: req.user.id },
+      include: { updates: true },
+    });
+
+    const updates = [];
+
+    for (const product of products) {
+      updates.push(...product.updates);
+    }
+
+    let match: string | undefined;
+
+    for (const update of updates) {
+      if (update.id === req.params.id) {
+        match = update;
+      }
+    }
+
+    if (!match) {
+      return res.status(404).json({ error: "Update not found" });
+    }
+
+    const deleted = await prisma.update.delete({
       where: { id: req.params.id },
     });
-    res.json({ data: update });
+
+    res.json({ data: deleted });
+
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

@@ -27,17 +27,16 @@ router.delete('/product/:id', deleteProduct);
 
 
 // Update
-router.get('/update',(req: Request, res: Response) => {});
+router.get('/update', );
 
-router.get('/update/:id', 
-  body('title').exists().isString(),
-  body('body').exists().isString(),
-  body('status').isIn(['IN_PROGRESS', 'SHIPPED', 'DEPRECATED']),
-  body('version').optional,
+router.get('/update/:id', );
+
+router.put('/update/:id',
+  body('title').optional().isString(),
+  body('body').optional().isString(),
+  body('status').isIn(['IN_PROGRESS', 'SHIPPED', 'DEPRECATED']).optional(),
   handleInputError,
-  (req: Request, res: Response) => {});
-
-router.put('/update/:id', (req: Request, res: Response) => {});
+);
 
 router.post('/update',
   body('title').exists().isString(),
