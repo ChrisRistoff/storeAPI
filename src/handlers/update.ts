@@ -15,11 +15,24 @@ export const getAllUpdates = async (req: Request, res: Response) => {
 // get all by user
 export const getAllUpdatesByUser = async (req: Request, res: Response) => {
   try {
-    const update = await prisma.update.findMany({
-      where: { id : req.user.id },
-      include: { updatedPoints: true }
+    const products = await prisma.product.findMany({
+      where: {
+        belongsToId: req.user.id,
+      },
+      include: {
+        updates: true,
+      },
     });
-    res.json({ data: update });
+
+    const allUpdates = [];
+
+    // probably a terrible solution but it works for now
+    // would potentially change my schema later on
+    for (const product of products) {
+      allUpdates.push(...product.updates);
+    }
+
+    res.json({ data: allUpdates });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -29,8 +42,7 @@ export const getAllUpdatesByUser = async (req: Request, res: Response) => {
 export const getOneUpdate = async (req: Request, res: Response) => {
   try {
     const update = await prisma.update.findFirst({
-      where: { id: req.params.id },
-      include: { updatedPoints: true }
+      where: { id : req.params.id },
     });
     res.json({ data: update });
   } catch (error) {

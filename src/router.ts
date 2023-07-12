@@ -42,6 +42,7 @@ router.put('/update/:id', (req: Request, res: Response) => {});
 router.post('/update',
   body('title').exists().isString(),
   body('body').exists().isString(),
+  body('productId').exists().isString(),
   handleInputError,
   (req: Request, res: Response) => {});
 
