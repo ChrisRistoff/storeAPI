@@ -1,0 +1,45 @@
+### Create update
+
+POST http://localhost:8080/api/update
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2OGNiMDcyLTc5MTYtNGQxZi05YWY3LWQzN2Q0N2M3ZjNkNyIsInVzZXJuYW1lIjoia3Jha3JhIiwiaWF0IjoxNjg4NDk5MDE0fQ.6yR9eLYV68Uy2poRhcRTwjXlKasVCd4xK2Rj9VQ99MU
+
+{
+  "title": "update title",
+  "body": "this is update",
+  "productId": "e9006a21-6daf-400c-b451-09f475f13ea1"
+}
+
+
+### Get all updates
+
+GET http://localhost:8080/api/update
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2OGNiMDcyLTc5MTYtNGQxZi05YWY3LWQzN2Q0N2M3ZjNkNyIsInVzZXJuYW1lIjoia3Jha3JhIiwiaWF0IjoxNjg4NDk5MDE0fQ.6yR9eLYV68Uy2poRhcRTwjXlKasVCd4xK2Rj9VQ99MU
+
+
+### Get update by id
+
+GET http://localhost:8080/api/update/c9a84b8a-7c28-4f92-9f98-cbd6b49f4144
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2OGNiMDcyLTc5MTYtNGQxZi05YWY3LWQzN2Q0N2M3ZjNkNyIsInVzZXJuYW1lIjoia3Jha3JhIiwiaWF0IjoxNjg4NDk5MDE0fQ.6yR9eLYV68Uy2poRhcRTwjXlKasVCd4xK2Rj9VQ99MU
+
+
+### update update
+
+PUT http://localhost:8080/api/update/c9a84b8a-7c28-4f92-9f98-cbd6b49f4144
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2OGNiMDcyLTc5MTYtNGQxZi05YWY3LWQzN2Q0N2M3ZjNkNyIsInVzZXJuYW1lIjoia3Jha3JhIiwiaWF0IjoxNjg4NDk5MDE0fQ.6yR9eLYV68Uy2poRhcRTwjXlKasVCd4xK2Rj9VQ99MU
+
+{
+  "title": "updated update title",
+  "body": "this is updated update",
+  "status": "SHIPPED"
+}
+
+
+### Delete update
+
+DELETE http://localhost:8080/api/update/c9a84b8a-7c28-4f92-9f98-cbd6b49f4144
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2OGNiMDcyLTc5MTYtNGQxZi05YWY3LWQzN2Q0N2M3ZjNkNyIsInVzZXJuYW1lIjoia3Jha3JhIiwiaWF0IjoxNjg4NDk5MDE0fQ.6yR9eLYV68Uy2poRhcRTwjXlKasVCd4xK2Rj9VQ99MU

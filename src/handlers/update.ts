@@ -52,12 +52,15 @@ export const getOneUpdate = async (req: Request, res: Response) => {
 
 // create
 export const createUpdate = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
     const product = await prisma.product.findFirst({
       where: { id: req.body.productId },
     });
+    console.log(product);
 
     if (!product) {
+      console.log("product not found");
       return res.status(404).json({ error: "Product not found" });
     }
 
