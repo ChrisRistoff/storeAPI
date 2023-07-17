@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import { body, oneOf, validationResult } from 'express-validator';
 import { handleInputError } from './modules/middleware';
-import { createProduct, deleteProduct, getAllProducts, getOne, getUserProducts, updateProduct } from './handlers/products';
+import { createProduct, deleteProduct, getOne, getUserProducts, updateProduct } from './handlers/products';
 import { createUpdate, deleteUpdate, getAllUpdatesByUser, getOneUpdate, updateUpdate } from './handlers/update';
 
 const router = Router();
