@@ -1,4 +1,4 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import prisma from "../db"
 
 declare module 'express' {
@@ -11,45 +11,48 @@ declare module 'express' {
 
 
 // get all products of a user
-export const getUserProducts = async (req: Request, res: Response) => { 
+export const getUserProducts = async (req: Request, res: Response, next: NextFunction) => { 
   try {
     const user = await prisma.user.findUnique({
       where: { id: req.user.id },
-     include: { products: true },
-})
+      include: { products: true },
+    })
     res.json({data: user.products})
 
   } catch (error) {
-    res.status(500).json({error: "Could not get products"})
+    next(error);
   }
 }
 
 // get all products
-export const getAllProducts = async (_: Request, res: Response) => {
+export const getAllProducts = async (_: Request, res: Response, next: NextFunction) => {
   try {
     const products = await prisma.product.findMany()
     res.json({data: products})
-} catch (error) {
-  res.status(500).json({error: "Could not get products"})
-}
+
+  } catch (error) {
+    next(error);
+  }
 }
 
 // get one product
-export const getOne = async (req: Request, res: Response) => {
+export const getOne = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = req.params.id
     const product = await prisma.product.findFirst({
       where: { id : id },
       include: { belongsTo: true },
-  })
-  res.json({data: product})
+    })
+    res.json({data: product})
+
   } catch (error) {
-    res.status(404).json({error: "Product not found"})
+    error.type = "input";
+    next(error);
   }
 }
 
 // delete a product
-export const deleteProduct = async (req: Request, res: Response) => {
+export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const product = await prisma.product.delete({
       where: {
@@ -60,14 +63,15 @@ export const deleteProduct = async (req: Request, res: Response) => {
       },
     })
     res.json({data: product, message: "Product deleted successfully"})
-  }
-  catch (error) {
-    res.status(404).json({error: "Product not found"})
+  
+  } catch (error) {
+    // default error type is "server"
+    next(error);
   }
 }
 
 // update a product
-export const updateProduct = async (req: Request, res: Response) => {
+export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
   const { name, description } = req.body
   try {
     const product = await prisma.product.update({
@@ -80,24 +84,27 @@ export const updateProduct = async (req: Request, res: Response) => {
       data: { name, description },
     })
     res.json({data: product, message: "Product updated successfully"})
+
   } catch (error) {
-    res.status(404).json({error: "Product not found"})
-    console.log(error)
+    error.type = "input";
+    next(error);
   }
 }
 
 // create a new product
-export const createProduct = async (req: Request, res: Response) => {
+export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const product = await prisma.product.create({
       data: {
         name: req.body.name,
         description: req.body.description,
         belongsToId: req.user.id,
-    }
-  })
-  res.json({data: product, message: "Product created successfully"})
+      }
+    })
+    res.json({data: product, message: "Product created successfully"})
+
   } catch (error) {
-    res.status(500).json({error: "Product could not be created"})
+    error.type = "input";
+    next(error);
   }
 }

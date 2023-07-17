@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import router from './router';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -22,5 +22,20 @@ app.use('/api', protect, router);
 // User routes
 app.post('/user', createNewUser);
 app.post('/signin', signIn);
+
+app.use((err: any, _: Request, res: Response, next: NextFunction) => {
+  if (err.type === "auth") {
+    return res.status(401).json({ message: "You are not authorized to access this route" });
+  }
+
+  else if (err.type === "input") {
+    return res.status(400).json({ message: "Invalid input" });
+  }
+
+  else {
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
 
 export default app;

@@ -1,19 +1,20 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import prisma from "../db";
 
 
 //get all
-export const getAllUpdates = async (req: Request, res: Response) => {
+export const getAllUpdates = async (_: Request, res: Response, next: NextFunction) => {
   try {
     const update = await prisma.update.findMany();
     res.json({ data: update });
+
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
 // get all by user
-export const getAllUpdatesByUser = async (req: Request, res: Response) => {
+export const getAllUpdatesByUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const products = await prisma.product.findMany({
       where: {
@@ -34,24 +35,25 @@ export const getAllUpdatesByUser = async (req: Request, res: Response) => {
 
     res.json({ data: allUpdates });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
 // get by id
-export const getOneUpdate = async (req: Request, res: Response) => {
+export const getOneUpdate = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const update = await prisma.update.findFirst({
       where: { id : req.params.id },
     });
     res.json({ data: update });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    error.type = "input";
+    next(error);
   }
 };
 
 // create
-export const createUpdate = async (req: Request, res: Response) => {
+export const createUpdate = async (req: Request, res: Response, next: NextFunction) => {
   console.log(req.body);
   try {
     const product = await prisma.product.findFirst({
@@ -70,13 +72,14 @@ export const createUpdate = async (req: Request, res: Response) => {
 
    res.json({ data: update });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    error.type = "input";
+    next(error);
   }
 };
 
 
 // update
-export const updateUpdate = async (req: Request, res: Response) => {
+export const updateUpdate = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // get all products by user
     const products = await prisma.product.findMany({
@@ -114,13 +117,14 @@ export const updateUpdate = async (req: Request, res: Response) => {
 
    res.json({ data: update });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    error.type = "input";
+    next(error);
   }
 };
 
 
 // delete
-export const deleteUpdate = async (req: Request, res: Response) => {
+export const deleteUpdate = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const products = await prisma.product.findMany({
       where: { belongsToId: req.user.id },
@@ -153,6 +157,7 @@ export const deleteUpdate = async (req: Request, res: Response) => {
 
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    error.type = "input";
+    next(error);
   }
 }
