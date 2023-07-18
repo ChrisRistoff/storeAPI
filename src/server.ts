@@ -7,6 +7,10 @@ import { createNewUser, signIn } from './handlers/user';
 
 const app = express();
 
+app.get('/', (_: Request, res: Response) => {
+  res.json({ message: 'hello' });
+});
+
 // middleware to allow cross-origin requests from the frontend app
 app.use(cors());
 // middleware to parse json data from the request body into an object
